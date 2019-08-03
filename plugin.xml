@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="im.youme.cordovaim" version="1.0.0" 
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>YoumeIMCordovaPlugin</name>
+    <js-module name="YoumeIMCordovaPlugin" src="www/YoumeIMCordovaPlugin.js">
+        <clobbers target="cordova.plugins.YoumeIMCordovaPlugin" />
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="YoumeIMCordovaPlugin">
+                <param name="android-package" value="im.youme.cordovaim.YoumeIMCordovaPlugin" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <source-file src="src/android/YoumeIMCordovaPlugin.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
+    </platform>
+</plugin>

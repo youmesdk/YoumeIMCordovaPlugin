@@ -1,0 +1,11 @@
+{
+  "name": "im.youme.imcordovaplugin",
+  "version": "1.0.0",
+  "description": "youme im for Apache Cordova",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
