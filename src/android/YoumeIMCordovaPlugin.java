@@ -19,6 +19,7 @@ import com.youme.imsdk.YIMMessage;
 import com.youme.imsdk.YIMMessageBodyAudio;
 import com.youme.imsdk.YIMMessageBodyText;
 import com.youme.imsdk.callback.YIMEventCallback;
+import com.youme.imsdk.internal.ChatRoom;
 import com.youme.imsdk.internal.SendMessage;
 import com.youme.imsdk.internal.SendVoiceMsgInfo;
 
@@ -95,12 +96,34 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
                 this.cancelAudioMessage();
             }
             return false;
+            case "joinChatRoom":
+            {
+                String roomID     = args.getString(0);
+                this.joinChatRoom(roomID, callbackContext);
+            }
+            break;
             case "stopAndSendAudioMessage":
             {
                 this.stopAndSendAudioMessage(callbackContext);
             }
             break;
-
+            case "leaveChatRoom":
+            {
+                String roomID     = args.getString(0);
+                this.leaveChatRoom(roomID, callbackContext);
+            }
+            break;
+            case "startPlayAudio":
+            {
+                String audioPath     = args.getString(0);
+                this.startPlayAudio(audioPath, callbackContext);
+            }
+            break;
+            case "stopPlayAudio":
+            {
+                this.stopPlayAudio();
+            }
+            return false;
             default:
                 return false;
         }
@@ -218,6 +241,52 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
                 }
             }
         });
+    }
+
+    private void joinChatRoom(String roomID, CallbackContext callbackContext){
+        YIMClient.getInstance().joinChatRoom(roomID, new YIMEventCallback.ResultCallback<ChatRoom>() {
+            @Override
+            public void onSuccess(ChatRoom chatRoom) {
+                callbackContext.success(chatRoom.groupId);
+            }
+
+            @Override
+            public void onFailed(int code, ChatRoom chatRoom) {
+                callbackContext.error(chatRoom.groupId);
+            }
+        });
+    }
+
+    private void leaveChatRoom(String roomID, CallbackContext callbackContext){
+        YIMClient.getInstance().leaveChatRoom(roomID, new YIMEventCallback.ResultCallback<ChatRoom>() {
+            @Override
+            public void onSuccess(ChatRoom chatRoom) {
+                callbackContext.success(chatRoom.groupId);
+            }
+
+            @Override
+            public void onFailed(int code, ChatRoom chatRoom) {
+                callbackContext.error(chatRoom.groupId);
+            }
+        });
+    }
+
+    private void startPlayAudio(String audioPath, CallbackContext callbackContext){
+        YIMClient.getInstance().startPlayAudio(audioPath, new YIMEventCallback.ResultCallback<String>() {
+            @Override
+            public void onSuccess(String s) {
+                callbackContext.success();
+            }
+
+            @Override
+            public void onFailed(int code, String s) {
+                callbackContext.error(code);
+            }
+        });
+    }
+
+    private void stopPlayAudio(){
+        YIMClient.getInstance().stopPlayAudio();
     }
 
     @Override
