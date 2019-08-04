@@ -12,7 +12,47 @@
                 <param name="android-package" value="im.youme.cordovaim.YoumeIMCordovaPlugin" />
             </feature>
         </config-file>
-        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest" mode="merge">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.RECORD_AUDIO" />
+        </config-file>
+        <lib-file src="src/android/libs/alisr.jar" />
+        <lib-file src="src/android/libs/gson-2.3.1.jar" />
+        <lib-file src="src/android/libs/Msc.jar" />
+        <lib-file src="src/android/libs/Sunflower.jar" />
+        <lib-file src="src/android/libs/usc.jar" />
+        <lib-file src="src/android/libs/yim-sdk.jar" />
+        <lib-file src="src/android/libs/yim.jar" />
+        <source-file src="libs/arm64-v8a/libmsc.so" target-dir="src/main/jniLibs/arm64-v8a/"/>
+        <source-file src="libs/armeabi/libmsc.so" target-dir="src/main/jniLibs/armeabi/"/>
+        <source-file src="libs/armeabi-v7a/libmsc.so" target-dir="src/main/jniLibs/armeabi-v7a/"/>
+        <source-file src="libs/x86/libmsc.so" target-dir="src/main/jniLibs/x86/"/>
+         <source-file src="libs/arm64-v8a/libnlscppsdk.so" target-dir="src/main/jniLibs/arm64-v8a/"/>
+        <source-file src="libs/armeabi/libnlscppsdk.so" target-dir="src/main/jniLibs/armeabi/"/>
+        <source-file src="libs/armeabi-v7a/libnlscppsdk.so" target-dir="src/main/jniLibs/armeabi-v7a/"/>
+        <source-file src="libs/x86/libnlscppsdk.so" target-dir="src/main/jniLibs/x86/"/>
+              <source-file src="libs/arm64-v8a/libuscasr.so" target-dir="src/main/jniLibs/arm64-v8a/"/>
+        <source-file src="libs/armeabi/libuscasr.so" target-dir="src/main/jniLibs/armeabi/"/>
+        <source-file src="libs/armeabi-v7a/libuscasr.so" target-dir="src/main/jniLibs/armeabi-v7a/"/>
+        <source-file src="libs/x86/libuscasr.so" target-dir="src/main/jniLibs/x86/"/>
+              <source-file src="libs/arm64-v8a/libuuid.so" target-dir="src/main/jniLibs/arm64-v8a/"/>
+        <source-file src="libs/armeabi/libuuid.so" target-dir="src/main/jniLibs/armeabi/"/>
+        <source-file src="libs/armeabi-v7a/libuuid.so" target-dir="src/main/jniLibs/armeabi-v7a/"/>
+        <source-file src="libs/x86/libuuid.so" target-dir="src/main/jniLibs/x86/"/>
+         <source-file src="libs/arm64-v8a/libyim.so" target-dir="src/main/jniLibs/arm64-v8a/"/>
+        <source-file src="libs/armeabi/libyim.so" target-dir="src/main/jniLibs/armeabi/"/>
+        <source-file src="libs/armeabi-v7a/libyim.so" target-dir="src/main/jniLibs/armeabi-v7a/"/>
+        <source-file src="libs/x86/libyim.so" target-dir="src/main/jniLibs/x86/"/>
+
         <source-file src="src/android/YoumeIMCordovaPlugin.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
+        <source-file src="src/android/AudioMessage.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
+        <source-file src="src/android/AudioMessageStartSendInfo.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
+        <source-file src="src/android/TextMessage.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
     </platform>
 </plugin>
