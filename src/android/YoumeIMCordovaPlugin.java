@@ -49,17 +49,17 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
             {
                 this.reconnectCallback = callbackContext;
             }
-            return false;
+            return true;
             case "registerKickOffCallback":
             {
                 this.kickOffCallback = callbackContext;
             }
-            return false;
+            return true;
             case "registerMsgEventCallback":
             {
                 this.msgEventCallback = callbackContext;
             }
-            return false;
+            return true;
             case "login":
             {
                 String userID = args.getString(0);
