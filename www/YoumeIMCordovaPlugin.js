@@ -1,52 +1,56 @@
-cordova.define("im.youme.cordovaim.YoumeIMCordovaPlugin", function(require, exports, module) {
 var exec = require('cordova/exec');
+function YoumeIMCordovaPlugin(){
+    console.log('YoumeIMCordovaPlugin created')
+}
 
-exports.init = function (appKey,secretKey,regionId, success, error) {
+YoumeIMCordovaPlugin.prototype.init = function (appKey,secretKey,regionId, success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'init', [appKey,secretKey,regionId]);
 };
-exports.login = function (userid, password, token, success, error) {
+YoumeIMCordovaPlugin.prototype.login = function (userid, password, token, success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'login', [userid, password, token]);
 };
-exports.logout = function (success, error) {
+YoumeIMCordovaPlugin.prototype.logout = function (success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'logout', []);
 };
-exports.sendTextMessage = function (strRecvId, iChatType, strMsgContent, strAttachParam, success, error) {
+YoumeIMCordovaPlugin.prototype.sendTextMessage = function (strRecvId, iChatType, strMsgContent, strAttachParam, success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'sendTextMessage', [strRecvId, iChatType, strMsgContent, strAttachParam]);
 };
 
-exports.registerReconnectCallback = function (success, error) {
+YoumeIMCordovaPlugin.prototype.registerReconnectCallback = function (success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'registerReconnectCallback', []);
 };
-exports.registerKickOffCallback = function (success, error) {
+YoumeIMCordovaPlugin.prototype.registerKickOffCallback = function (success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'registerKickOffCallback', []);
 };
-exports.registerMsgEventCallback = function (success, error) {
+YoumeIMCordovaPlugin.prototype.registerMsgEventCallback = function (success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'registerMsgEventCallback', []);
 };
-exports.startRecordAudioMessage = function (recvID, chatType, extraText, needRecognize, success, error) {
+YoumeIMCordovaPlugin.prototype.startRecordAudioMessage = function (recvID, chatType, extraText, needRecognize, success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'startRecordAudioMessage', [recvID, chatType, extraText, needRecognize]);
 };
-exports.cancelAudioMessage = function (success, error) {
+YoumeIMCordovaPlugin.prototype.cancelAudioMessage = function (success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'cancelAudioMessage', []);
 };
-exports.stopAndSendAudioMessage = function (success, error) {
+YoumeIMCordovaPlugin.prototype.stopAndSendAudioMessage = function (success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'stopAndSendAudioMessage', []);
 };
 
-exports.joinChatRoom = function (roomID, success, error) {
+YoumeIMCordovaPlugin.prototype.joinChatRoom = function (roomID, success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'joinChatRoom', [roomID]);
 };
 
-exports.leaveChatRoom = function (roomID, success, error) {
+YoumeIMCordovaPlugin.prototype.leaveChatRoom = function (roomID, success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'leaveChatRoom', [roomID]);
 };
 
-exports.startPlayAudio = function (audioPath, success, error) {
+YoumeIMCordovaPlugin.prototype.startPlayAudio = function (audioPath, success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'startPlayAudio', [audioPath]);
 };
 
-exports.stopPlayAudio = function (success, error) {
+YoumeIMCordovaPlugin.prototype.stopPlayAudio = function (success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'stopPlayAudio', []);
 };
 
-});
+var YoumeIMCordovaPluginInstance = new YoumeIMCordovaPlugin();
+module.exports = YoumeIMCordovaPluginInstance;
+
