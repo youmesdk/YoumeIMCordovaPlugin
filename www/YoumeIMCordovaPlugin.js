@@ -51,6 +51,13 @@ YoumeIMCordovaPlugin.prototype.stopPlayAudio = function (success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'stopPlayAudio', []);
 };
 
+/**
+ * transType: 0 message will delivery directly; 1 means just cc to app server, not delivery directly
+ */
+YoumeIMCordovaPlugin.prototype.switchTransType = function (transType,success, error) {
+    exec(success, error, 'YoumeIMCordovaPlugin', 'switchTransType', []);
+};
+
 var YoumeIMCordovaPluginInstance = new YoumeIMCordovaPlugin();
 module.exports = YoumeIMCordovaPluginInstance;
 

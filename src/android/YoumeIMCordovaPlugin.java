@@ -124,6 +124,11 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
                 this.stopPlayAudio();
             }
             return false;
+            case "switchTransType":
+            {
+                int    transType   = args.getInt(0);
+                this.switchTransType(transType, callbackContext);
+            }
             default:
                 return false;
         }
@@ -287,6 +292,15 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
 
     private void stopPlayAudio(){
         YIMClient.getInstance().stopPlayAudio();
+    }
+
+    private void switchTransType(int transType, CallbackContext callbackContext){
+        int code = YIMClient.getInstance().switchMsgTransType(transType);
+        if(code == 0){
+            callbackContext.success();
+        }else{
+            callbackContext.error("switchTransType failed, code: "+code);
+        }
     }
 
     @Override
