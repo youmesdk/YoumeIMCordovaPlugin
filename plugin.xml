@@ -12,7 +12,7 @@
                 <param name="android-package" value="im.youme.cordovaim.YoumeIMCordovaPlugin" />
             </feature>
         </config-file>
-        <config-file target="AndroidManifest.xml" parent="/manifest" mode="merge">
+        <config-file mode="merge" parent="/manifest" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
             <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -29,30 +29,66 @@
         <lib-file src="src/android/libs/usc.jar" />
         <lib-file src="src/android/libs/yim-sdk.jar" />
         <lib-file src="src/android/libs/yim.jar" />
-        <source-file src="src/android/libs/arm64-v8a/libmsc.so" target-dir="src/main/jniLibs/arm64-v8a/"/>
-        <source-file src="src/android/libs/armeabi/libmsc.so" target-dir="src/main/jniLibs/armeabi/"/>
-        <source-file src="src/android/libs/armeabi-v7a/libmsc.so" target-dir="src/main/jniLibs/armeabi-v7a/"/>
-        <source-file src="src/android/libs/x86/libmsc.so" target-dir="src/main/jniLibs/x86/"/>
-        <source-file src="src/android/libs/arm64-v8a/libnlscppsdk.so" target-dir="src/main/jniLibs/arm64-v8a/"/>
-        <source-file src="src/android/libs/armeabi/libnlscppsdk.so" target-dir="src/main/jniLibs/armeabi/"/>
-        <source-file src="src/android/libs/armeabi-v7a/libnlscppsdk.so" target-dir="src/main/jniLibs/armeabi-v7a/"/>
-        <source-file src="src/android/libs/x86/libnlscppsdk.so" target-dir="src/main/jniLibs/x86/"/>
-        <source-file src="src/android/libs/arm64-v8a/libuscasr.so" target-dir="src/main/jniLibs/arm64-v8a/"/>
-        <source-file src="src/android/libs/armeabi/libuscasr.so" target-dir="src/main/jniLibs/armeabi/"/>
-        <source-file src="src/android/libs/armeabi-v7a/libuscasr.so" target-dir="src/main/jniLibs/armeabi-v7a/"/>
-        <source-file src="src/android/libs/x86/libuscasr.so" target-dir="src/main/jniLibs/x86/"/>
-        <source-file src="src/android/libs/arm64-v8a/libuuid.so" target-dir="src/main/jniLibs/arm64-v8a/"/>
-        <source-file src="src/android/libs/armeabi/libuuid.so" target-dir="src/main/jniLibs/armeabi/"/>
-        <source-file src="src/android/libs/armeabi-v7a/libuuid.so" target-dir="src/main/jniLibs/armeabi-v7a/"/>
-        <source-file src="src/android/libs/x86/libuuid.so" target-dir="src/main/jniLibs/x86/"/>
-        <source-file src="src/android/libs/arm64-v8a/libyim.so" target-dir="src/main/jniLibs/arm64-v8a/"/>
-        <source-file src="src/android/libs/armeabi/libyim.so" target-dir="src/main/jniLibs/armeabi/"/>
-        <source-file src="src/android/libs/armeabi-v7a/libyim.so" target-dir="src/main/jniLibs/armeabi-v7a/"/>
-        <source-file src="src/android/libs/x86/libyim.so" target-dir="src/main/jniLibs/x86/"/>
-
+        <source-file src="src/android/libs/arm64-v8a/libmsc.so" target-dir="src/main/jniLibs/arm64-v8a/" />
+        <source-file src="src/android/libs/armeabi/libmsc.so" target-dir="src/main/jniLibs/armeabi/" />
+        <source-file src="src/android/libs/armeabi-v7a/libmsc.so" target-dir="src/main/jniLibs/armeabi-v7a/" />
+        <source-file src="src/android/libs/x86/libmsc.so" target-dir="src/main/jniLibs/x86/" />
+        <source-file src="src/android/libs/arm64-v8a/libnlscppsdk.so" target-dir="src/main/jniLibs/arm64-v8a/" />
+        <source-file src="src/android/libs/armeabi/libnlscppsdk.so" target-dir="src/main/jniLibs/armeabi/" />
+        <source-file src="src/android/libs/armeabi-v7a/libnlscppsdk.so" target-dir="src/main/jniLibs/armeabi-v7a/" />
+        <source-file src="src/android/libs/x86/libnlscppsdk.so" target-dir="src/main/jniLibs/x86/" />
+        <source-file src="src/android/libs/arm64-v8a/libuscasr.so" target-dir="src/main/jniLibs/arm64-v8a/" />
+        <source-file src="src/android/libs/armeabi/libuscasr.so" target-dir="src/main/jniLibs/armeabi/" />
+        <source-file src="src/android/libs/armeabi-v7a/libuscasr.so" target-dir="src/main/jniLibs/armeabi-v7a/" />
+        <source-file src="src/android/libs/x86/libuscasr.so" target-dir="src/main/jniLibs/x86/" />
+        <source-file src="src/android/libs/arm64-v8a/libuuid.so" target-dir="src/main/jniLibs/arm64-v8a/" />
+        <source-file src="src/android/libs/armeabi/libuuid.so" target-dir="src/main/jniLibs/armeabi/" />
+        <source-file src="src/android/libs/armeabi-v7a/libuuid.so" target-dir="src/main/jniLibs/armeabi-v7a/" />
+        <source-file src="src/android/libs/x86/libuuid.so" target-dir="src/main/jniLibs/x86/" />
+        <source-file src="src/android/libs/arm64-v8a/libyim.so" target-dir="src/main/jniLibs/arm64-v8a/" />
+        <source-file src="src/android/libs/armeabi/libyim.so" target-dir="src/main/jniLibs/armeabi/" />
+        <source-file src="src/android/libs/armeabi-v7a/libyim.so" target-dir="src/main/jniLibs/armeabi-v7a/" />
+        <source-file src="src/android/libs/x86/libyim.so" target-dir="src/main/jniLibs/x86/" />
         <source-file src="src/android/YoumeIMCordovaPlugin.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
         <source-file src="src/android/AudioMessage.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
         <source-file src="src/android/AudioMessageStartSendInfo.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
         <source-file src="src/android/TextMessage.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
+    </platform>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="YoumeIMCordovaPlugin">
+                <param name="ios-package" value="YoumeIMCordovaPlugin" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/im_ios/include/YIM.h" />
+        <header-file src="src/ios/im_ios/include/YIMCallbackBlock.h" />
+        <header-file src="src/ios/im_ios/include/YIMCallbackProtocol.h" />
+        <header-file src="src/ios/im_ios/include/YIMClient.h" />
+        <header-file src="src/ios/im_ios/include/YIMImplement.h" />
+        <header-file src="src/ios/im_ios/include/YIMMessage.h" />
+        <header-file src="src/ios/im_ios/include/YIMService.h" />
+        <header-file src="src/ios/im_ios/include/YIMPlatformDefine.h" />
+        <source-file src="src/ios/im_ios/include/YIMCallbackBlock.mm" />
+        <source-file src="src/ios/im_ios/include/YIMClient.mm" />
+        <source-file src="src/ios/im_ios/include/YIMImplement.mm" />
+        <source-file src="src/ios/im_ios/include/YIMMessage.m" />
+        <source-file src="src/ios/im_ios/include/YIMService.mm" />
+        <framework src="src/ios/im_ios/lib/AliyunNlsSdk.framework" embed="true" custom="true"/>
+        <source-file src="src/ios/im_ios/lib/USCModule.framework" framework="true" />
+        <source-file src="src/ios/im_ios/lib/iflyMSC.framework" framework="true"/>
+        <source-file src="src/ios/im_ios/lib/libYouMeCommon.a" framework="true" />
+        <source-file src="src/ios/im_ios/lib/libyim.a" framework="true" />
+
+        <framework src="libc++.1.tbd" weak="true" />
+        <framework src="libsqlite3.0.tbd" weak="true" />
+        <framework src="libresolv.9.tbd" weak="true" />
+        <framework src="SystemConfiguration.framework" weak="true" />
+        <framework src="libz.tbd" weak="true" />
+        <framework src="CoreTelephony.framework" weak="true" />
+        <framework src="AVFoundation.framework" weak="true" />
+        <framework src="AudioToolbox.framework" weak="true" />
+        <framework src="CoreLocation.framework" weak="true" />
+
+        <source-file src="src/ios/YoumeIMCordovaPlugin.m" />
     </platform>
 </plugin>
