@@ -89,6 +89,6 @@
         <framework src="AudioToolbox.framework" weak="true" />
         <framework src="CoreLocation.framework" weak="true" />
 
-        <source-file src="src/ios/YoumeIMCordovaPlugin.m" />
+        <source-file src="src/ios/YoumeIMCordovaPlugin.mm" />
     </platform>
 </plugin>
