@@ -1,23 +1,29 @@
 /********* YoumeIMCordovaPlugin.m Cordova Plugin Implementation *******/
 
 #import <Cordova/CDV.h>
+#import "YIMClient.h"
 
 @interface YoumeIMCordovaPlugin : CDVPlugin {
   // Member variables go here.
 }
 
-- (void)coolMethod:(CDVInvokedUrlCommand*)command;
+- (void)init:(CDVInvokedUrlCommand*)command;
 @end
 
 @implementation YoumeIMCordovaPlugin
 
-- (void)coolMethod:(CDVInvokedUrlCommand*)command
+- (void)init:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
-    NSString* echo = [command.arguments objectAtIndex:0];
-
-    if (echo != nil && [echo length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
+    NSString* appKey = [command.arguments objectAtIndex:0];
+    NSString* secretKey = [command.arguments objectAtIndex:1];
+    NSNumber* regionId = [command.arguments objectAtIndex:2];
+    
+    YIMErrorcodeOC code = [[YIMClient GetInstance] InitWithAppKey:appKey appSecurityKey:secretKey serverZone:(YouMeIMServerZoneOC) [regionId integerValue] ];
+    
+    
+    if (code == YouMeIMCode_Success) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
