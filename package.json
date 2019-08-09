@@ -1,11 +1,32 @@
 {
-  "name": "im.youme.imcordovaplugin",
-  "version": "1.0.0",
-  "description": "youme im for Apache Cordova",
+  "name": "cordova-plugin-youme-im",
+  "version": "0.0.1",
+  "description": "Youme IM for Apache Cordova",
   "main": "index.js",
   "scripts": {
+    "pub":"npm publish",
+    "update":"npm version patch && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "cordova": {
+    "id": "cordova-plugin-youme-im",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/youmesdk/YoumeIMCordovaPlugin"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "youme",
+    "instant message",
+    "cordova chat"
+  ],
+  "author": "youme.im",
+  "license": "BSD"
 }
