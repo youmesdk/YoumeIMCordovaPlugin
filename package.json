@@ -1,11 +1,11 @@
 {
   "name": "cordova-plugin-youme-im",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Youme IM for Apache Cordova",
   "main": "index.js",
   "scripts": {
-    "pub":"npm publish",
-    "update":"npm version patch && npm publish",
+    "pub": "npm publish",
+    "update": "npm version patch && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "cordova": {
