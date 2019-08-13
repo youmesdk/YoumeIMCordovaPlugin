@@ -129,6 +129,19 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
                 int    transType   = args.getInt(0);
                 this.switchTransType(transType, callbackContext);
             }
+            break;
+            case "sendFileMessage":
+            {
+                String recvID     = args.getString(0);
+                int    chatType   = args.getInt(1);
+                String filePath = args.getString(2);
+                String attachPram = args.getString(3);
+                int    fileType   = args.getInt(4);
+                filePath = filePath.replace("file:///","/");
+                filePath = filePath.replace("FILE:///","/");
+                this.sendFileMessage(recvID, chatType, filePath, attachPram, fileType, callbackContext);
+            }
+            break;
             default:
                 return false;
         }
@@ -191,6 +204,25 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
 
     private void sendTextMessage(String recvID, int chatType, String msgContent, String attachParam, CallbackContext callbackContext){
         YIMClient.getInstance().sendTextMessage(recvID, chatType, msgContent, attachParam, new   YIMEventCallback.ResultCallback<SendMessage>(){
+
+            @Override
+            public void onSuccess(SendMessage sendMessage) {
+                Gson gson = new Gson();
+                String sendMessageInfo = gson.toJson(sendMessage);
+                callbackContext.success(sendMessageInfo);
+            }
+
+            @Override
+            public void onFailed(int code, SendMessage sendMessage) {
+                Gson gson = new Gson();
+                String sendMessageInfo = gson.toJson(sendMessage);
+                callbackContext.error(sendMessageInfo);
+            }
+        });
+    }
+
+    private void sendFileMessage(String recvID, int chatType,String filePath,String extParam, int fileType, CallbackContext callbackContext){
+        YIMClient.getInstance().sendFile(recvID, chatType, filePath, extParam, fileType, new YIMEventCallback.ResultCallback<SendMessage>(){
 
             @Override
             public void onSuccess(SendMessage sendMessage) {

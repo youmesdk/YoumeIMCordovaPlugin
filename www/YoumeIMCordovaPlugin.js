@@ -16,6 +16,10 @@ YoumeIMCordovaPlugin.prototype.sendTextMessage = function (strRecvId, iChatType,
     exec(success, error, 'YoumeIMCordovaPlugin', 'sendTextMessage', [strRecvId, iChatType, strMsgContent, strAttachParam]);
 };
 
+YoumeIMCordovaPlugin.prototype.sendFileMessage = function (strRecvId, iChatType, filePath, strAttachParam, fileType, success, error) {
+    exec(success, error, 'YoumeIMCordovaPlugin', 'sendFileMessage', [strRecvId, iChatType, filePath, strAttachParam, fileType]);
+};
+
 YoumeIMCordovaPlugin.prototype.registerReconnectCallback = function (success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'registerReconnectCallback', []);
 };

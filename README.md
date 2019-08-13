@@ -5,11 +5,16 @@ Youme IM Cordova Plugin
 - Android platform is added, and basic function is ready
 - iOS support is coming
 
-# Add to project
+# Add to Cordova project
 ```
-git clone https://github.com/fishg/YoumeIMCordovaPlugin
-cd /ProjectPath
-cordova plugin add /PluginsPath/YoumeIMCordovaPlugin
+cordova plugin add cordova-plugin-youme-im
+```
+
+# Add ionic plugin
+```
+cordova plugin add cordova-plugin-youme-im
+npm install @youme-ionic/youme-im --save
+npm install @youme-ionic/core --save
 ```
 
 # Demo
