@@ -12,6 +12,7 @@
 @property (nonatomic, strong) NSString* callbackIdKickOff;
 @property (nonatomic, strong) NSString* callbackIdMsgEvent;
 @property (nonatomic, strong) NSString* callbackIdForStopAudioRecord;
+@property (nonatomic, strong) NSString* callbackIdFile;
 
 
 
@@ -34,6 +35,8 @@
 -(void) startRecordAudioMessage:(CDVInvokedUrlCommand*)command;
 -(void) cancleAudioMessage;
 -(void) stopAndSendAudioMessage:(CDVInvokedUrlCommand*)command;
+
+-(void) sendFileMessage:(CDVInvokedUrlCommand*)command;
 
 - (void) startPlayAudio:(CDVInvokedUrlCommand*)command;
 - (void) stopPlayAudio;
@@ -272,12 +275,41 @@
                 [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackIdMsgEvent];
             }
         }];
-        
-       
         }
+    else if(pMessage.messageBody.messageType == YIMMessageBodyType_File){
+        //收到的是文件
+        YIMMessageBodyFile* fMessage = (YIMMessageBodyFile *)pMessage.messageBody;
+        NSLog(@"获得文件:" );
+        [[YIMClient GetInstance] DownloadAudio:pMessage.messageID strSavePath:[YoumeIMCordovaPlugin createUniqFilePath] callback:^(YIMErrorcodeOC errorcode, YIMMessage *msg, NSString *savePath) {
+            NSDictionary *fileMsg = @{
+                                       @"createTime":@([pMessage createTime]),
+                                       @"isRead":@0,
+                                       @"chatType":@([pMessage chatType]),
+                                       @"receiveId":[pMessage receiverID],
+                                       @"senderId":[pMessage senderID],
+                                       @"msgId":@([pMessage messageID]),
+                                       @"msgType":@7,
+                                       
+                                       @"attachParam":@0,
+                                       @"filePath":savePath,
+                                       @"fileExtension":[fMessage fileExtension],
+                                       @"fileType":@([fMessage fileType]),
+                                       @"fileSize":@([fMessage fileSize]),
+                                       @"fileName":@([fMessage fileType]),
+                                       };
+            NSData *data = [NSJSONSerialization dataWithJSONObject:fileMsg options:kNilOptions error:nil];
+            
+            NSString * jsonResult = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"文件消息:%@",jsonResult);
+            if(self.callbackIdMsgEvent != nil){
+                CDVPluginResult*  pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonResult];
+                [pluginResult setKeepCallbackAsBool:YES];
+                [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackIdMsgEvent];
+            }
+        }];
     }
     
-
+}
 
 -(void)startRecordAudioMessage:(CDVInvokedUrlCommand*)command
 {
@@ -355,6 +387,28 @@
 {
     [[YIMClient GetInstance]StopPlayAudio];
 }
+
+-(void) sendFileMessage:(CDVInvokedUrlCommand*)command
+{
+    NSString* strRecvId = [command.arguments objectAtIndex:0];
+    NSNumber* iChatType = [command.arguments objectAtIndex:1];
+    NSString* filePath = [command.arguments objectAtIndex:2];
+    NSString* strAttachParam = [command.arguments objectAtIndex:3];
+    NSNumber* fileType = [command.arguments objectAtIndex:4];
+    
+    [[YIMClient GetInstance]SendFile:strRecvId chatType:(YIMChatTypeOC)[iChatType integerValue] filePath:filePath extraParam:strAttachParam fileType:(YIMFileTypeOC)[fileType integerValue] callback:^(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
+        CDVPluginResult* pluginResult = nil;
+        if (errorcode == YouMeIMCode_Success) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+        
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
+
 
 
 
