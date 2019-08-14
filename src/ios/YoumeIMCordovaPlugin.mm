@@ -34,7 +34,7 @@
 -(void) OnRecvMessage:(YIMMessage*) pMessage;
 -(void) sendTextMessage:(CDVInvokedUrlCommand*)command;
 -(void) startRecordAudioMessage:(CDVInvokedUrlCommand*)command;
--(void) cancleAudioMessage;
+-(void) cancleAudioMessage:(CDVInvokedUrlCommand*)command;
 -(void) stopAndSendAudioMessage:(CDVInvokedUrlCommand*)command;
 
 -(void) sendFileMessage:(CDVInvokedUrlCommand*)command;
@@ -375,9 +375,9 @@
     
 }
 
--(void) cancleAudioMessage
+-(void) cancleAudioMessage:(CDVInvokedUrlCommand*)command
 {
-    [[YIMClient GetInstance]CancleAudioMessage];
+    [[YIMClient GetInstance] CancleAudioMessage];
 }
 
 -(void) stopAndSendAudioMessage:(CDVInvokedUrlCommand*)command
