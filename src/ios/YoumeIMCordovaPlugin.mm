@@ -136,9 +136,18 @@
     NSString* strAttachParam = [command.arguments objectAtIndex:3];
     
     [[YIMClient GetInstance]SendTextMessage:strRecvId chatType:(YIMChatTypeOC)[iChatType integerValue] msgContent:strMsgContent attachParam:strAttachParam callback:^(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
+        NSDictionary *msgInfo = @{
+                                       @"RequestID":@0,
+                                       @"SendTime":@(sendTime),
+                                       @"IsForbidRoom":@(isForbidRoom),
+                                       @"reasonType":@(reasonType),
+                                       @"forbidEndTime":@(forbidEndTime),
+                                       };
+        NSData *data = [NSJSONSerialization dataWithJSONObject:msgInfo options:kNilOptions error:nil];
+        NSString * jsonResult = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         CDVPluginResult* pluginResult = nil;
         if (errorcode == YouMeIMCode_Success) {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonResult];
         } else {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
@@ -397,9 +406,18 @@
     NSNumber* fileType = [command.arguments objectAtIndex:4];
     
     [[YIMClient GetInstance]SendFile:strRecvId chatType:(YIMChatTypeOC)[iChatType integerValue] filePath:filePath extraParam:strAttachParam fileType:(YIMFileTypeOC)[fileType integerValue] callback:^(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
+        NSDictionary *msgInfo = @{
+                                  @"RequestID":@0,
+                                  @"SendTime":@(sendTime),
+                                  @"IsForbidRoom":@(isForbidRoom),
+                                  @"reasonType":@(reasonType),
+                                  @"forbidEndTime":@(forbidEndTime),
+                                  };
+        NSData *data = [NSJSONSerialization dataWithJSONObject:msgInfo options:kNilOptions error:nil];
+        NSString * jsonResult = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         CDVPluginResult* pluginResult = nil;
         if (errorcode == YouMeIMCode_Success) {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonResult];
         } else {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }
