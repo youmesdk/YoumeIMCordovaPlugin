@@ -46,7 +46,7 @@
 //停止并发送语音
 -(YIMErrorcodeOC) StopAndSendAudioMessage:(NSString *)attachMsg;
 //取消语音
--(YIMErrorcodeOC) CancleAudioMessage;
+-(YIMErrorcodeOC) CancelAudioMessage;
 
 //NSArray<NSString*>
 -(YIMErrorcodeOC) MultiSendTextMessage:( NSArray * )receivers  text:(NSString *) text;
