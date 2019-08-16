@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-youme-im",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Youme IM for Apache Cordova",
   "main": "index.js",
   "scripts": {
