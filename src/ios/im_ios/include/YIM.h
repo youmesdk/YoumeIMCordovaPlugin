@@ -1243,7 +1243,7 @@ public:
 	* 功能：取消语音
 	* @return 错误码
 	*/
-    virtual YIMErrorcode CancleAudioMessage() =0;
+    virtual YIMErrorcode CancelAudioMessage() =0;
 	
 	/*
 	* 功能：发送礼物

@@ -208,8 +208,8 @@
     return (YIMErrorcodeOC)YIMManager::CreateInstance()->GetMessageManager()->StopAudioMessage([attachMsg UTF8String]);
 }
 
--(YIMErrorcodeOC) CancleAudioMessage{
-    return (YIMErrorcodeOC)YIMManager::CreateInstance()->GetMessageManager()->CancleAudioMessage();
+-(YIMErrorcodeOC) CancelAudioMessage{
+    return (YIMErrorcodeOC)YIMManager::CreateInstance()->GetMessageManager()->CancelAudioMessage();
 }
 
 -(YIMErrorcodeOC) MultiSendTextMessage:( NSArray * )receivers  text:(NSString *) text{
