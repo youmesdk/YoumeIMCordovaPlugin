@@ -88,7 +88,7 @@
 -(void)login:(CDVInvokedUrlCommand*)command
 {
     __block CDVPluginResult* pluginResult = nil;
-    
+
     NSString* userid = [command.arguments objectAtIndex:0];
     NSString* password = [command.arguments objectAtIndex:1];
     NSString* token = [command.arguments objectAtIndex:2];
@@ -329,9 +329,9 @@
     NSNumber* chatType = [command.arguments objectAtIndex:1];
     NSNumber* extraText = [command.arguments objectAtIndex:2];
     NSNumber* needRecognize = [command.arguments objectAtIndex:3];
-    
-    self.lastStartRecordParam = [NSString stringWithFormat:@"%@", extraText];
-    
+
+        self.lastStartRecordParam = [NSString stringWithFormat:@"%@", extraText];
+
     [[YIMClient GetInstance]StartRecordAudioMessage:recvID chatType:(YIMChatTypeOC)[chatType integerValue] recognizeText:(BOOL)[needRecognize boolValue] isOpenOnlyRecognizeText:false callback:^(YIMErrorcodeOC errorcode, NSString *text, NSString *audioPath, unsigned int audioTime, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
         /*
         NSDictionary *msgStartInfo = @{
@@ -349,10 +349,10 @@
             [pluginResult setKeepCallbackAsBool:YES];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackIdForStopAudioRecord];
         }
-         */
+        */
     }
     startSendCallback:^(YIMErrorcodeOC errorcode, NSString *text, NSString *audioPath, unsigned int audioTime) {
-        NSDictionary *msgStartInfo = @{
+         NSDictionary *msgStartInfo = @{
                                   @"msgId":@0,
                                   @"audioText":text,
                                   @"audioPath":audioPath,
@@ -364,7 +364,7 @@
         
         CDVPluginResult* pluginResult = nil;
         if (errorcode == YouMeIMCode_Success && self.callbackIdForStopAudioRecord) {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: jsonResult];
+pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: jsonResult];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackIdForStopAudioRecord];
         }
         
@@ -377,12 +377,12 @@
 
 -(void) cancelAudioMessage:(CDVInvokedUrlCommand*)command
 {
-    [[YIMClient GetInstance] CancelAudioMessage];
+    [[YIMClient GetInstance] CancleAudioMessage];
 }
 
 -(void) stopAndSendAudioMessage:(CDVInvokedUrlCommand*)command
 {
-    
+        
     YIMErrorcodeOC errorcode = [[YIMClient GetInstance] StopAndSendAudioMessage:self.lastStartRecordParam ? self.lastStartRecordParam : @""];
     self.lastStartRecordParam = nil;
     CDVPluginResult* pluginResult = nil;
