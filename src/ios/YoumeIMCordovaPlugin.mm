@@ -8,12 +8,11 @@
     // Member variables go here.
 }
 
-@property (nonatomic, retain) NSString* callbackIdReConnet;
-@property (nonatomic, retain) NSString* callbackIdKickOff;
-@property (nonatomic, retain) NSString* callbackIdMsgEvent;
-@property (nonatomic, retain) NSString* callbackIdForStopAudioRecord;
-@property (nonatomic, retain) NSString* callbackIdFile;
-@property (nonatomic, retain) NSString* lastStartRecordParam;
+@property (nonatomic, strong) NSString* callbackIdReConnet;
+@property (nonatomic, strong) NSString* callbackIdKickOff;
+@property (nonatomic, strong) NSString* callbackIdMsgEvent;
+@property (nonatomic, strong) NSString* callbackIdForStopAudioRecord;
+@property (nonatomic, strong) NSString* callbackIdFile;
 
 
 
@@ -34,13 +33,15 @@
 -(void) OnRecvMessage:(YIMMessage*) pMessage;
 -(void) sendTextMessage:(CDVInvokedUrlCommand*)command;
 -(void) startRecordAudioMessage:(CDVInvokedUrlCommand*)command;
--(void) cancelAudioMessage:(CDVInvokedUrlCommand*)command;
+-(void) cancelAudioMessage;
 -(void) stopAndSendAudioMessage:(CDVInvokedUrlCommand*)command;
+-(void) downloadAudioByUrl:(CDVInvokedUrlCommand*)command;
+
 
 -(void) sendFileMessage:(CDVInvokedUrlCommand*)command;
 
 - (void) startPlayAudio:(CDVInvokedUrlCommand*)command;
-- (void) stopPlayAudio :(CDVInvokedUrlCommand*)command;
+- (void) stopPlayAudio;
 
 +(NSString*)createUniqFilePath;
 @end
@@ -88,7 +89,6 @@
 -(void)login:(CDVInvokedUrlCommand*)command
 {
     __block CDVPluginResult* pluginResult = nil;
-
     NSString* userid = [command.arguments objectAtIndex:0];
     NSString* password = [command.arguments objectAtIndex:1];
     NSString* token = [command.arguments objectAtIndex:2];
@@ -137,7 +137,7 @@
     NSString* strMsgContent = [command.arguments objectAtIndex:2];
     NSString* strAttachParam = [command.arguments objectAtIndex:3];
     
-    [[YIMClient GetInstance] SendTextMessage:strRecvId chatType:(YIMChatTypeOC)[iChatType integerValue] msgContent:strMsgContent attachParam:strAttachParam callback:^(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
+    [[YIMClient GetInstance]SendTextMessage:strRecvId chatType:(YIMChatTypeOC)[iChatType integerValue] msgContent:strMsgContent attachParam:strAttachParam callback:^(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
         NSDictionary *msgInfo = @{
                                        @"RequestID":@0,
                                        @"SendTime":@(sendTime),
@@ -329,11 +329,8 @@
     NSNumber* chatType = [command.arguments objectAtIndex:1];
     NSNumber* extraText = [command.arguments objectAtIndex:2];
     NSNumber* needRecognize = [command.arguments objectAtIndex:3];
-
-        self.lastStartRecordParam = [NSString stringWithFormat:@"%@", extraText];
-
+    
     [[YIMClient GetInstance]StartRecordAudioMessage:recvID chatType:(YIMChatTypeOC)[chatType integerValue] recognizeText:(BOOL)[needRecognize boolValue] isOpenOnlyRecognizeText:false callback:^(YIMErrorcodeOC errorcode, NSString *text, NSString *audioPath, unsigned int audioTime, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
-        /*
         NSDictionary *msgStartInfo = @{
                                    @"msgId":@0,
                                    @"audioText":text,
@@ -349,22 +346,11 @@
             [pluginResult setKeepCallbackAsBool:YES];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackIdForStopAudioRecord];
         }
-        */
     }
     startSendCallback:^(YIMErrorcodeOC errorcode, NSString *text, NSString *audioPath, unsigned int audioTime) {
-         NSDictionary *msgStartInfo = @{
-                                  @"msgId":@0,
-                                  @"audioText":text,
-                                  @"audioPath":audioPath,
-                                  @"audioTime":@(audioTime),
-                                  };
-       NSData *data = [NSJSONSerialization dataWithJSONObject:msgStartInfo options:kNilOptions error:nil];
-       NSString * jsonResult = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-       NSLog(@"发送的语音消息:%@",jsonResult);
-        
         CDVPluginResult* pluginResult = nil;
         if (errorcode == YouMeIMCode_Success && self.callbackIdForStopAudioRecord) {
-pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: jsonResult];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackIdForStopAudioRecord];
         }
         
@@ -375,16 +361,14 @@ pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsSt
     
 }
 
--(void) cancelAudioMessage:(CDVInvokedUrlCommand*)command
+-(void) cancelAudioMessage
 {
-    [[YIMClient GetInstance] CancleAudioMessage];
+    [[YIMClient GetInstance]CancleAudioMessage];
 }
 
 -(void) stopAndSendAudioMessage:(CDVInvokedUrlCommand*)command
 {
-        
-    YIMErrorcodeOC errorcode = [[YIMClient GetInstance] StopAndSendAudioMessage:self.lastStartRecordParam ? self.lastStartRecordParam : @""];
-    self.lastStartRecordParam = nil;
+    YIMErrorcodeOC errorcode = [[YIMClient GetInstance]StopAndSendAudioMessage:@""];
     CDVPluginResult* pluginResult = nil;
     if (errorcode != YouMeIMCode_Success) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -393,6 +377,20 @@ pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsSt
         self.callbackIdForStopAudioRecord = command.callbackId;
     }
     
+}
+
+-(void) downloadAudioByUrl:(CDVInvokedUrlCommand*)command
+{
+    NSString* downloadURL = [command.arguments objectAtIndex:0];
+    [[YIMClient GetInstance]DownloadAudioByUrl:downloadURL strSavePath:[YoumeIMCordovaPlugin createUniqFilePath] callback:^(YIMErrorcodeOC errorcode, NSString *strFromUrl, NSString *savePath) {
+        CDVPluginResult* pluginResult = nil;
+        if (errorcode == YouMeIMCode_Success) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
 }
 
 - (void) startPlayAudio:(CDVInvokedUrlCommand*)command
@@ -410,9 +408,9 @@ pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsSt
     }];
 }
 
-- (void) stopPlayAudio:(CDVInvokedUrlCommand*)command
+- (void) stopPlayAudio
 {
-    [[YIMClient GetInstance] StopPlayAudio];
+    [[YIMClient GetInstance]StopPlayAudio];
 }
 
 -(void) sendFileMessage:(CDVInvokedUrlCommand*)command
@@ -423,7 +421,7 @@ pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsSt
     NSString* strAttachParam = [command.arguments objectAtIndex:3];
     NSNumber* fileType = [command.arguments objectAtIndex:4];
     
-    [[YIMClient GetInstance]SendFile:strRecvId chatType:(YIMChatTypeOC)[iChatType integerValue] filePath:filePath extraParam:strAttachParam fileType:(YIMFileTypeOC)[fileType integerValue] callback:^(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
+    [[YIMClient GetInstance]SendFile:strRecvId chatType:(YIMChatTypeOC)[iChatType integerValue] filePath:[filePath stringByReplacingOccurrencesOfString:@"file://" withString:@""] extraParam:strAttachParam fileType:(YIMFileTypeOC)[fileType integerValue] callback:^(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
         NSDictionary *msgInfo = @{
                                   @"RequestID":@0,
                                   @"SendTime":@(sendTime),
