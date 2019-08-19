@@ -633,9 +633,9 @@
     }
 }
 
--(void) DownloadAudioByUrl:(NSString*) downloadURL  strSavePath:(NSString*)strSavePath callback:(downloadByUrlCBType)callback{
+-(void) DownloadFileByUrl:(NSString*) downloadURL  strSavePath:(NSString*)strSavePath fileType:(YIMFileType)fileType callback:(downloadByUrlCBType)callback{
     
-    YIMErrorcodeOC code = (YIMErrorcodeOC)YIMManager::CreateInstance()->GetMessageManager()->DownloadFile([downloadURL UTF8String], [strSavePath UTF8String]);
+    YIMErrorcodeOC code = (YIMErrorcodeOC)YIMManager::CreateInstance()->GetMessageManager()->DownloadFile([downloadURL UTF8String], [strSavePath UTF8String], fileType);
     
     if(callback == nil)
     {

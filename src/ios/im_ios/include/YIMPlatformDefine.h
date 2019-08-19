@@ -1,4 +1,4 @@
-#ifndef __PLATFORMDEF_H
+﻿#ifndef __PLATFORMDEF_H
 #define __PLATFORMDEF_H
 
 #include <string>

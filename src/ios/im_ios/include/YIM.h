@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <list>
 #include <vector>
@@ -1271,7 +1271,7 @@ public:
 	* @param savePath：保存路径（若调用SetDownloadDir设置保存路径，可为空；否则须指定全路径）
 	* @return 错误码
 	*/
-	virtual YIMErrorcode DownloadFile(const XCHAR* downloadURL, const XCHAR* savePath) = 0;
+	virtual YIMErrorcode DownloadFile(const XCHAR* downloadURL, const XCHAR* savePath, YIMFileType fileType=FileType_Audio) = 0;
 
 	/*
 	* 功能：设置下载保存目录（DownloadFile的默认下载目录）
