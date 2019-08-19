@@ -332,7 +332,7 @@
     NSNumber* extraText = [command.arguments objectAtIndex:2];
     NSNumber* needRecognize = [command.arguments objectAtIndex:3];
     
-    self.lastStartRecordParam = [NSString stringWithFormat:@"%@", extraText];
+      self.lastStartRecordParam = [NSString stringWithFormat:@"%@", extraText];
 
     [[YIMClient GetInstance]StartRecordAudioMessage:recvID chatType:(YIMChatTypeOC)[chatType integerValue] recognizeText:(BOOL)[needRecognize boolValue] isOpenOnlyRecognizeText:false callback:^(YIMErrorcodeOC errorcode, NSString *text, NSString *audioPath, unsigned int audioTime, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
         /*
@@ -363,7 +363,7 @@
        NSData *data = [NSJSONSerialization dataWithJSONObject:msgStartInfo options:kNilOptions error:nil];
        NSString * jsonResult = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
        NSLog(@"发送的语音消息:%@",jsonResult);
-        
+
         CDVPluginResult* pluginResult = nil;
         if (errorcode == YouMeIMCode_Success && self.callbackIdForStopAudioRecord) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: jsonResult];
@@ -385,7 +385,7 @@
 -(void) stopAndSendAudioMessage:(CDVInvokedUrlCommand*)command
 {
 
-    YIMErrorcodeOC errorcode = [[YIMClient GetInstance] StopAndSendAudioMessage:self.lastStartRecordParam ? self.lastStartRecordParam : @""];
+ YIMErrorcodeOC errorcode = [[YIMClient GetInstance] StopAndSendAudioMessage:self.lastStartRecordParam ? self.lastStartRecordParam : @""];
     self.lastStartRecordParam = nil;
     CDVPluginResult* pluginResult = nil;
     if (errorcode != YouMeIMCode_Success) {
@@ -440,7 +440,7 @@
     NSNumber* fileType = [command.arguments objectAtIndex:4];
     
 [[YIMClient GetInstance]SendFile:strRecvId chatType:(YIMChatTypeOC)[iChatType integerValue] filePath:filePath extraParam:strAttachParam fileType:(YIMFileTypeOC)[fileType integerValue] callback:^(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
-        NSDictionary *msgInfo = @{
+                        NSDictionary *msgInfo = @{
                                   @"RequestID":@0,
                                   @"SendTime":@(sendTime),
                                   @"IsForbidRoom":@(isForbidRoom),
