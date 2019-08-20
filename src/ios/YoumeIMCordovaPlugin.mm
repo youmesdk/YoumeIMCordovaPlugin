@@ -76,7 +76,7 @@
     
     YIMErrorcodeOC code = [[YIMClient GetInstance] InitWithAppKey:appKey appSecurityKey:secretKey serverZone:(YouMeIMServerZoneOC) [regionId integerValue] ];
     
-    [[YIMClient GetInstance] SetDelegate:self];
+    [[YIMClient GetInstance] SetDelegate:(id<YIMCallbackProtocol>)self];
     
     
     if (code == YouMeIMCode_Success) {
@@ -366,6 +366,7 @@
        NSLog(@"发送的语音消息:%@",jsonResult);
 
         CDVPluginResult* pluginResult = nil;
+        
         if (errorcode == YouMeIMCode_Success && self.callbackIdForStopAudioRecord) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: jsonResult];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackIdForStopAudioRecord];
