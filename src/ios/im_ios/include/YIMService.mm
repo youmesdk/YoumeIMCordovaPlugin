@@ -266,8 +266,8 @@
     return (YIMErrorcodeOC)YIMManager::CreateInstance()->GetMessageManager()->DownloadFile(messageID, [strSavePath UTF8String]);
 }
 
--(YIMErrorcodeOC) DownloadFileByUrl:(NSString*) downloadURL  strSavePath:(NSString*)strSavePath fileType:(YIMFileType)fileType{
-    return (YIMErrorcodeOC)YIMManager::CreateInstance()->GetMessageManager()->DownloadFile([downloadURL UTF8String], [strSavePath UTF8String], fileType);
+-(YIMErrorcodeOC) DownloadFileByUrl:(NSString*) downloadURL  strSavePath:(NSString*)strSavePath fileType:(YIMFileTypeOC)fileType{
+    return (YIMErrorcodeOC)YIMManager::CreateInstance()->GetMessageManager()->DownloadFile([downloadURL UTF8String], [strSavePath UTF8String], (YIMFileType)fileType);
 }
 
 +(void) SetAudioCacheDir:(NSString*) path{

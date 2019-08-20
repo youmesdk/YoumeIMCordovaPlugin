@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <list>
 #include <vector>
@@ -1146,7 +1146,7 @@ public:
 	* @param strFromUrl URL
 	* @param savePath 保存路径
 	*/
-    virtual void OnDownloadByUrl( YIMErrorcode errorcode, const XString& strFromUrl, const XString& savePath ){}
+    virtual void OnDownloadByUrl( YIMErrorcode errorcode, const XString& strFromUrl, const XString& savePath, int iAudioTime ){}
 };
 
 //语音识别语言

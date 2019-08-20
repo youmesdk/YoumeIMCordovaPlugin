@@ -253,11 +253,12 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
         YIMClient.getInstance().downloadFileByUrl(url, savePath, fileType, new YIMEventCallback.DownloadByUrlCallback(){
 
             @Override
-            public void onDownloadByUrl(int code, String fromUrl,  String savePath) {
+            public void onDownloadByUrl(int code, String fromUrl,  String savePath,int audioTime) {
                 im.youme.cordovaim.FileDownloadMessage result = new im.youme.cordovaim.FileDownloadMessage();
                 result.code = code;
                 result.fromURL = fromUrl;
                 result.savePath = savePath;
+                result.audioTime = audioTime;
                 Gson gson = new Gson();
                 String jsonStr = gson.toJson(result);
                 if(code == 0){

@@ -445,7 +445,7 @@ void YIMImplement::OnStartSendAudioMessage(XUINT64 requestID, YIMErrorcode error
         }
         startSendAudioMsgCBType callblock = [[YIMCallbackBlock GetInstance].startSendAudioMsgCBBlocks objectForKey:[NSNumber numberWithUnsignedLongLong:requestID]];
         if(callblock){
-            callblock(requestID,(YIMErrorcodeOC)errorcode,messageTxt,audioPathStr,audioTime);
+            callblock((YIMErrorcodeOC)errorcode,messageTxt,audioPathStr,audioTime);
             callblock = nil;
             [[YIMCallbackBlock GetInstance].startSendAudioMsgCBBlocks removeObjectForKey:[NSNumber numberWithUnsignedLongLong:requestID]];
         }
@@ -621,7 +621,7 @@ void YIMImplement::OnDownload(YIMErrorcode errorcode, std::shared_ptr<IYIMMessag
     });
 }
 
-void YIMImplement::OnDownloadByUrl( YIMErrorcode errorcode, const XString& strFromUrl, const XString& savePath ) {
+void YIMImplement::OnDownloadByUrl( YIMErrorcode errorcode, const XString& strFromUrl, const XString& savePath, int iAudioTime ) {
     NSString* url = [NSString stringWithUTF8String:strFromUrl.c_str()];
     NSString* path = [NSString stringWithUTF8String:savePath.c_str()];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -630,7 +630,7 @@ void YIMImplement::OnDownloadByUrl( YIMErrorcode errorcode, const XString& strFr
         }
         downloadByUrlCBType callblock = [[YIMCallbackBlock GetInstance].downloadByUrlCBBlocks objectForKey:url];
         if(callblock){
-            callblock((YIMErrorcodeOC)errorcode,url,path);
+            callblock((YIMErrorcodeOC)errorcode,url,path,iAudioTime);
             callblock = nil;
             [[YIMCallbackBlock GetInstance].downloadByUrlCBBlocks removeObjectForKey:url];
         }

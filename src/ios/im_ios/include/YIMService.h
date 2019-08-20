@@ -146,7 +146,7 @@
 
 //下载语音或者文件
 -(YIMErrorcodeOC) DownloadAudio:(unsigned long long) ulSerial  strSavePath:(NSString*)strSavePath;
--(YIMErrorcodeOC) DownloadFileByUrl:(NSString*) downloadURL  strSavePath:(NSString*)strSavePath fileType:(YIMFileType)fileType;
+-(YIMErrorcodeOC) DownloadFileByUrl:(NSString*) downloadURL  strSavePath:(NSString*)strSavePath fileType:(YIMFileTypeOC)fileType;
 
 // 获取当前地理位置
 -(YIMErrorcodeOC) GetCurrentLocation;

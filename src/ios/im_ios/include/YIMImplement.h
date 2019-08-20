@@ -57,7 +57,7 @@ public:
     //IYIMDownloadCallback
     virtual void OnDownload( YIMErrorcode errorcode, std::shared_ptr<IYIMMessage> msg, const XString& savePath ) override;
     
-    virtual void OnDownloadByUrl( YIMErrorcode errorcode, const XString& strFromUrl, const XString& savePath ) override;
+    virtual void OnDownloadByUrl( YIMErrorcode errorcode, const XString& strFromUrl, const XString& savePath ,int iAudioTime ) override;
     
     //IYIMAudioPlayCallback
     virtual void OnPlayCompletion(YIMErrorcode errorcode, const XString& path) override;

@@ -404,11 +404,13 @@
     NSString* downloadURL = [command.arguments objectAtIndex:0];
     NSString* strSavePath = [command.arguments objectAtIndex:1];
     NSNumber* fileType = [command.arguments objectAtIndex:2];
-    [[YIMClient GetInstance]DownloadFileByUrl:downloadURL strSavePath:strSavePath fileType:(YIMFileType)[fileType integerValue] callback:^(YIMErrorcodeOC errorcode, NSString *strFromUrl, NSString *savePath) {
+    [[YIMClient GetInstance] DownloadFileByUrl:downloadURL strSavePath:strSavePath fileType:(YIMFileType)[fileType integerValue] 
+    callback:^(YIMErrorcodeOC errorcode, NSString *strFromUrl, NSString *savePath,int audioTime) {
         NSDictionary *msgInfo = @{
                                   @"code":@(errorcode),
                                   @"fromURL":strFromUrl,
                                   @"savePath":savePath,
+                                  @"audioTime":@(audioTime)
                                   };
         NSData *data = [NSJSONSerialization dataWithJSONObject:msgInfo options:kNilOptions error:nil];
         NSString * jsonResult = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];

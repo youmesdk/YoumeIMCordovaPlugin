@@ -234,7 +234,7 @@
         return requestID;
     }
     
-    if(code == YIMErrorcode_Success)
+    if(code == YouMeIMCode_Success)
     {
         [self setSendMessageCB2Cache:callback requestid:requestID];
     }
@@ -257,7 +257,7 @@
         return requestID;
     }
     
-    if(code == YIMErrorcode_Success)
+    if(code == YouMeIMCode_Success)
     {
         [self setSendMessageCB2Cache:callback requestid:requestID];
     }
@@ -633,9 +633,9 @@
     }
 }
 
--(void) DownloadFileByUrl:(NSString*) downloadURL  strSavePath:(NSString*)strSavePath fileType:(YIMFileType)fileType callback:(downloadByUrlCBType)callback{
+-(void) DownloadFileByUrl:(NSString*) downloadURL  strSavePath:(NSString*)strSavePath fileType:(YIMFileTypeOC)fileType callback:(downloadByUrlCBType)callback{
     
-    YIMErrorcodeOC code = (YIMErrorcodeOC)YIMManager::CreateInstance()->GetMessageManager()->DownloadFile([downloadURL UTF8String], [strSavePath UTF8String], fileType);
+    YIMErrorcodeOC code = (YIMErrorcodeOC)YIMManager::CreateInstance()->GetMessageManager()->DownloadFile([downloadURL UTF8String], [strSavePath UTF8String], (YIMFileType)fileType);
     
     if(callback == nil)
     {
@@ -648,7 +648,7 @@
     }
     else
     {
-        callback(code, downloadURL, @"");
+        callback(code, downloadURL, @"",0);
     }
 }
 
