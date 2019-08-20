@@ -143,6 +143,14 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
                 this.sendFileMessage(recvID, chatType, filePath, attachPram, fileType, callbackContext);
             }
             break;
+            case "downloadFileByUrl":
+            {
+                String url      = args.getString(0);
+                String savePath = args.getString(1);
+                int    fileType = args.getInt(2);
+                this.downloadFileByURL(url, savePath, fileType, callbackContext);
+            }
+                break;
             default:
                 return false;
         }
@@ -237,6 +245,26 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
                 Gson gson = new Gson();
                 String sendMessageInfo = gson.toJson(sendMessage);
                 callbackContext.error(sendMessageInfo);
+            }
+        });
+    }
+
+    private void downloadFileByURL(String url,String savePath , int fileType, CallbackContext callbackContext){
+        YIMClient.getInstance().downloadFileByUrl(url, savePath, fileType, new YIMEventCallback.DownloadByUrlCallback(){
+
+            @Override
+            public void onDownloadByUrl(int code, String fromUrl,  String savePath) {
+                im.youme.cordovaim.FileDownloadMessage result = new im.youme.cordovaim.FileDownloadMessage();
+                result.code = code;
+                result.fromURL = fromUrl;
+                result.savePath = savePath;
+                Gson gson = new Gson();
+                String jsonStr = gson.toJson(result);
+                if(code == 0){
+                    callbackContext.success(jsonStr);
+                }else{
+                    callbackContext.error(jsonStr);
+                }
             }
         });
     }
