@@ -356,7 +356,7 @@
     }
     startSendCallback:^(unsigned long long requestID,YIMErrorcodeOC errorcode, NSString *text, NSString *audioPath, unsigned int audioTime) {
         NSDictionary *msgStartInfo = @{
-                                  @"msgId":@requestID,
+                                  @"msgId":@(requestID),
                                   @"audioText":text,
                                   @"audioPath":audioPath,
                                   @"audioTime":@(audioTime),
