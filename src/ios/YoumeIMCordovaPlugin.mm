@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSString* callbackIdMsgEvent;
 @property (nonatomic, strong) NSString* callbackIdForStopAudioRecord;
 @property (nonatomic, strong) NSString* callbackIdFile;
+@property (nonatomic, retain) NSString* lastStartRecordParam;
 
 
 
@@ -33,7 +34,7 @@
 -(void) OnRecvMessage:(YIMMessage*) pMessage;
 -(void) sendTextMessage:(CDVInvokedUrlCommand*)command;
 -(void) startRecordAudioMessage:(CDVInvokedUrlCommand*)command;
--(void) cancelAudioMessage;
+-(void) cancelAudioMessage:(CDVInvokedUrlCommand*)command;
 -(void) stopAndSendAudioMessage:(CDVInvokedUrlCommand*)command;
 -(void) downloadFileByUrl:(CDVInvokedUrlCommand*)command;
 
@@ -41,7 +42,7 @@
 -(void) sendFileMessage:(CDVInvokedUrlCommand*)command;
 
 - (void) startPlayAudio:(CDVInvokedUrlCommand*)command;
-- (void) stopPlayAudio;
+- (void) stopPlayAudio:(CDVInvokedUrlCommand*)command;
 
 +(NSString*)createUniqFilePath;
 @end
@@ -89,6 +90,7 @@
 -(void)login:(CDVInvokedUrlCommand*)command
 {
     __block CDVPluginResult* pluginResult = nil;
+
     NSString* userid = [command.arguments objectAtIndex:0];
     NSString* password = [command.arguments objectAtIndex:1];
     NSString* token = [command.arguments objectAtIndex:2];
@@ -137,7 +139,7 @@
     NSString* strMsgContent = [command.arguments objectAtIndex:2];
     NSString* strAttachParam = [command.arguments objectAtIndex:3];
     
-    [[YIMClient GetInstance]SendTextMessage:strRecvId chatType:(YIMChatTypeOC)[iChatType integerValue] msgContent:strMsgContent attachParam:strAttachParam callback:^(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
+    [[YIMClient GetInstance] SendTextMessage:strRecvId chatType:(YIMChatTypeOC)[iChatType integerValue] msgContent:strMsgContent attachParam:strAttachParam callback:^(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime) {
         NSDictionary *msgInfo = @{
                                        @"RequestID":@0,
                                        @"SendTime":@(sendTime),

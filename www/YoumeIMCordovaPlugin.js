@@ -1,4 +1,4 @@
-cordova.define("im.youme.cordovaim.YoumeIMCordovaPlugin", function(require, exports, module) {
+
 var exec = require('cordova/exec');
 function YoumeIMCordovaPlugin(){
     console.log('YoumeIMCordovaPlugin created')
@@ -69,4 +69,3 @@ YoumeIMCordovaPlugin.prototype.switchTransType = function (transType,success, er
 
 var YoumeIMCordovaPluginInstance = new YoumeIMCordovaPlugin();
 module.exports = YoumeIMCordovaPluginInstance;
-});
