@@ -23,7 +23,7 @@ typedef void(^leaveAllRoomCBType)(YIMErrorcodeOC errorcode);
 
 typedef void(^sendMessageStatusCBType)(YIMErrorcodeOC errorcode, unsigned int sendTime, bool isForbidRoom,int reasonType,unsigned long long forbidEndTime);
 typedef void(^sendAudioMsgStatusCBType)(YIMErrorcodeOC errorcode, NSString* text, NSString* audioPath, unsigned int audioTime, unsigned int sendTime, bool isForbidRoom, int reasonType, unsigned long long forbidEndTime);
-typedef void(^startSendAudioMsgCBType)(YIMErrorcodeOC errorcode, NSString* text, NSString* audioPath, unsigned int audioTime);
+typedef void(^startSendAudioMsgCBType)(unsigned long long requestID,YIMErrorcodeOC errorcode, NSString* text, NSString* audioPath, unsigned int audioTime);
 typedef void(^uploadSpeechStatusCBType)(YIMErrorcodeOC errorcode,  AudioSpeechInfo* audioSpeechInfo);
 
 typedef void(^downloadCBType)(YIMErrorcodeOC errorcode, YIMMessage* msg, NSString* savePath);
