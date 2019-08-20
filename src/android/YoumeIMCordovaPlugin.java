@@ -148,6 +148,8 @@ public class YoumeIMCordovaPlugin extends CordovaPlugin implements YIMEventCallb
                 String url      = args.getString(0);
                 String savePath = args.getString(1);
                 int    fileType = args.getInt(2);
+                savePath = savePath.replace("file:///","/");
+                savePath = savePath.replace("FILE:///","/");
                 this.downloadFileByURL(url, savePath, fileType, callbackContext);
             }
                 break;
