@@ -1,3 +1,4 @@
+cordova.define("im.youme.cordovaim.YoumeIMCordovaPlugin", function(require, exports, module) {
 var exec = require('cordova/exec');
 function YoumeIMCordovaPlugin(){
     console.log('YoumeIMCordovaPlugin created')
@@ -39,6 +40,10 @@ YoumeIMCordovaPlugin.prototype.stopAndSendAudioMessage = function (success, erro
     exec(success, error, 'YoumeIMCordovaPlugin', 'stopAndSendAudioMessage', []);
 };
 
+YoumeIMCordovaPlugin.prototype.downloadAudioByUrl = function (downloadURL,strSavePath,success, error) {
+    exec(success, error, 'YoumeIMCordovaPlugin', 'downloadAudioByUrl', [downloadURL,strSavePath]);
+};
+               
 YoumeIMCordovaPlugin.prototype.joinChatRoom = function (roomID, success, error) {
     exec(success, error, 'YoumeIMCordovaPlugin', 'joinChatRoom', [roomID]);
 };
@@ -65,3 +70,5 @@ YoumeIMCordovaPlugin.prototype.switchTransType = function (transType,success, er
 var YoumeIMCordovaPluginInstance = new YoumeIMCordovaPlugin();
 module.exports = YoumeIMCordovaPluginInstance;
 
+
+});
