@@ -54,6 +54,7 @@
         <source-file src="src/android/AudioMessageStartSendInfo.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
         <source-file src="src/android/TextMessage.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
         <source-file src="src/android/FileMessage.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
+        <source-file src="src/android/FileDownloadMessage.java" target-dir="src/im/youme/cordovaim/YoumeIMCordovaPlugin" />
     </platform>
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
