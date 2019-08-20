@@ -445,7 +445,7 @@ void YIMImplement::OnStartSendAudioMessage(XUINT64 requestID, YIMErrorcode error
         }
         startSendAudioMsgCBType callblock = [[YIMCallbackBlock GetInstance].startSendAudioMsgCBBlocks objectForKey:[NSNumber numberWithUnsignedLongLong:requestID]];
         if(callblock){
-            callblock((YIMErrorcodeOC)errorcode,messageTxt,audioPathStr,audioTime);
+            callblock(requestID,(YIMErrorcodeOC)errorcode,messageTxt,audioPathStr,audioTime);
             callblock = nil;
             [[YIMCallbackBlock GetInstance].startSendAudioMsgCBBlocks removeObjectForKey:[NSNumber numberWithUnsignedLongLong:requestID]];
         }

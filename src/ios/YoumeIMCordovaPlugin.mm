@@ -404,7 +404,7 @@
     NSString* downloadURL = [command.arguments objectAtIndex:0];
     NSString* strSavePath = [command.arguments objectAtIndex:1];
     NSNumber* fileType = [command.arguments objectAtIndex:2];
-    [[YIMClient GetInstance] DownloadFileByUrl:downloadURL strSavePath:strSavePath fileType:(YIMFileType)[fileType integerValue] 
+    [[YIMClient GetInstance] DownloadFileByUrl:downloadURL strSavePath:strSavePath fileType:(YIMFileTypeOC)[fileType integerValue] 
     callback:^(YIMErrorcodeOC errorcode, NSString *strFromUrl, NSString *savePath,int audioTime) {
         NSDictionary *msgInfo = @{
                                   @"code":@(errorcode),
